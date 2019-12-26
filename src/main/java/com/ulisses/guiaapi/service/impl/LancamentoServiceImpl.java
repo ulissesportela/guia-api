@@ -46,6 +46,7 @@ public class LancamentoServiceImpl implements LancamentoService {
 	@Override
 	@Transactional // Inicia a tranzação e ao final realiza o commit ou o rolback
 	public void deletar(Lancamento lancamento) {
+		Objects.requireNonNull(lancamento.getId());
 		repository.delete(lancamento);
 	}
 
