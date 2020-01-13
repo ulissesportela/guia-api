@@ -55,6 +55,13 @@ public class LancamentoResource {
 
 	}
 
+	@GetMapping("{id}")
+	public ResponseEntity obterLancamento (@PathVariable("id") Long id) {
+		return lancamentoService.obterPorId(id)
+				.map( lancamento -> new ResponseEntity( converter( lancamento ) , HttpStatus.OK))
+				.orElseGet( () -> new ResponseEntity(HttpStatus.NOT_FOUND));		
+	}
+	
 	@PostMapping
 	public ResponseEntity salvar(@RequestBody LancamentoDTO dto) {
 		try {
@@ -111,6 +118,21 @@ public class LancamentoResource {
 		}).orElseGet(() -> ResponseEntity.badRequest().body("Lancamento não encontrado na base de dados."));
 	}
 
+	private LancamentoDTO converter(Lancamento lancamento) {
+		return LancamentoDTO.builder()
+					.id(lancamento.getId())
+					.descricao(lancamento.getDescricao())
+					.valor(lancamento.getValor())
+					.mes(lancamento.getMes())
+					.ano(lancamento.getAno())
+					.status(lancamento.getStatus().name())
+					.tipo(lancamento.getTipo().name())
+					.usuario(lancamento.getUsuario().getId())
+					.build();
+					
+					
+	}
+	
 	private Lancamento converter(LancamentoDTO dto) {
 		Usuario usuario = usuarioService.obterPorId(dto.getUsuario())
 				.orElseThrow(() -> new RegraNegocioException("Usuario não encontrado para o lancamento informado."));
@@ -126,4 +148,5 @@ public class LancamentoResource {
 
 		return lancamento;
 	}
+	
 }
