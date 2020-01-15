@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ulisses.guiaapi.api.dto.AtualizarStatusDTO;
 import com.ulisses.guiaapi.api.dto.LancamentoDTO;
 import com.ulisses.guiaapi.exception.RegraNegocioException;
 import com.ulisses.guiaapi.model.entity.Lancamento;
@@ -90,7 +91,7 @@ public class LancamentoResource {
 	}
 
 	@PutMapping("{id}/atualiza-status")
-	public ResponseEntity atualizarStatus(@PathVariable("id") Long id, @RequestBody LancamentoDTO dto) {
+	public ResponseEntity atualizarStatus(@PathVariable("id") Long id, @RequestBody AtualizarStatusDTO dto) {
 		return lancamentoService.obterPorId(id).map(lancamento -> {
 
 			StatusLancamento status = StatusLancamento.valueOf(dto.getStatus());
