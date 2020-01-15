@@ -201,11 +201,11 @@ public class LancamentoServiceTest {
 		Long idUsuario = 1l;
 		
 		when( repository
-				.obterSaldoPorTipoLancamentoEUsuario(idUsuario, TipoLancamento.RECEITA)) 
+				.obterSaldoPorTipoLancamentoEUsuarioEStatus(idUsuario, TipoLancamento.RECEITA, StatusLancamento.EFETIVADO)) 
 				.thenReturn(BigDecimal.valueOf(100));
 		
 		when( repository
-				.obterSaldoPorTipoLancamentoEUsuario(idUsuario, TipoLancamento.DESPESA)) 
+				.obterSaldoPorTipoLancamentoEUsuarioEStatus(idUsuario, TipoLancamento.DESPESA, StatusLancamento.EFETIVADO)) 
 				.thenReturn(BigDecimal.valueOf(50));
 		
 		//execucao
